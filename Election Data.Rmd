@@ -1,0 +1,14 @@
+---
+title: "Election Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+```{r}
+read_csv(file = "~/Desktop/Gov_1005/elections-2020/raw_data/Presidential_elections_2012_2016_2020_Results.csv")
+```
+
