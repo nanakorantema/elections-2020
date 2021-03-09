@@ -6,9 +6,35 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
+library(rstanarm)
 ```
 
+```{r read in data}
+x <- read_csv(file = "raw_data/Presidential_elections_2012_2016_2020_Results.csv", skip = 1)
+```
+
+```{r created new object}
+win_data <- x %>% 
+  select(CD, Biden, Trump) %>% 
+  mutate(biden_win = ifelse(Biden > Trump, 1, 0))
+```
+
+
+```{r created random sample object}
+small <- win_data %>% 
+            slice_sample(n = 50) 
+
+
+  
+```
+
+
 ```{r}
-read_csv(file = "~/Desktop/Gov_1005/elections-2020/raw_data/Presidential_elections_2012_2016_2020_Results.csv")
+small %>% 
+  stan_glm(formula = biden_win ~ 1, 
+                  data = small,
+                  family = binomial,
+                  refresh = 0,
+                  seed = 2020))
 ```
 
